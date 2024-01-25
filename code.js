@@ -97,6 +97,7 @@ function readCookie()
 	}
 	else
 	{
+		// maybe comment out
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
