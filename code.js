@@ -36,6 +36,8 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
+				// debugging
+				alert("User ID received from server: " + userId);
 		
 				if( userId < 1 )
 				{		
@@ -47,7 +49,8 @@ function doLogin()
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	
+
+				// this takes user to the next page
 				window.location.href = "color.html";
 			}
 		};
