@@ -36,10 +36,8 @@ function doLogin()
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				// debugging
-				alert("User ID received from server: " + userId);
 		
-				if( userId < 1 )
+				if(typeof userId === 'undefined')
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
