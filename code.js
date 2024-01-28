@@ -13,15 +13,13 @@ function doLogin()
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = {Login:login,Password:password};
-//	var tmp = {login:login,password:hash};
+
+	// data to send to server (body of HTTP request)
 	let jsonPayload = JSON.stringify( tmp );
-	
-	//alert( jsonPayload );
 	
 	let url = urlBase + '/Login.' + extension;
 
@@ -34,6 +32,7 @@ function doLogin()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				// response from server
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.ID;
 		
@@ -52,6 +51,7 @@ function doLogin()
 				window.location.href = "color.html";
 			}
 		};
+		// sends HTTP request to server
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -59,6 +59,64 @@ function doLogin()
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
+}
+
+function doRegister()
+{
+	let firstName = document.getElementById("registerFirstName").value;
+    let lastName = document.getElementById("registerLastName").value;
+    let yachtRegistration = document.getElementById("registerYachtRegistration").value;
+    let login = document.getElementById("registerLogin").value;
+    let password = document.getElementById("registerPassword").value;
+
+    // check if any of the fields are blank
+    if (firstName === "" || lastName === "" || yachtRegistration === "" || login === "" || password === "") 
+	{
+        document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields.";
+        return; // exit the function if any field is blank
+    }
+
+	document.getElementById("registerResult").innerHTML = "";
+
+	let tmp = 
+	{
+        FirstName:firstName,
+        LastName:lastName,
+        YachtRegistration:yachtRegistration,
+        Login:login,
+        Password:password
+    };
+
+	// data to send to server (body of HTTP request)
+	let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/Register.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try 
+	{
+        xhr.onreadystatechange = function() 
+		{
+            if (this.readyState == 4 && this.status == 200)
+			{
+                let response = JSON.parse(xhr.responseText);
+
+                if (response.error)
+                    document.getElementById("registerResult").innerHTML = response.error;
+                else
+                    document.getElementById("registerResult").innerHTML = "Registration successful. Please login.";
+            }
+        };
+        xhr.send(jsonPayload);
+
+    } 
+	catch (err) 
+	{
+        document.getElementById("registerResult").innerHTML = err.message;
+    }
 }
 
 function saveCookie()
@@ -187,3 +245,4 @@ function searchContact()
 	}
 	
 }
+
