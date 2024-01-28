@@ -13,7 +13,7 @@
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
+        	sendResultInfoAsJson("Contact added successfully");
 	}
 
 	function getRequestInfo()
@@ -24,12 +24,12 @@
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
-		echo $obj;
+        	echo json_encode( $obj );
 	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+        	$retValue = array("error" => $err);
 		sendResultInfoAsJson( $retValue );
 	}
 	
