@@ -17,11 +17,11 @@ function doLogin()
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = {login:login,password:password};
+	let tmp = {Login:login,Password:password};
 //	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
-
-//	alert( jsonPayload );
+	
+	//alert( jsonPayload );
 	
 	let url = urlBase + '/Login.' + extension;
 
@@ -35,9 +35,9 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+				userId = jsonObject.ID;
 		
-				if(typeof userId === 'undefined')
+				if(userId < 1)
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 					return;
@@ -187,4 +187,3 @@ function searchContact()
 	}
 	
 }
-
