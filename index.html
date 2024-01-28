@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Contact Manager</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+    <title>Contact Manager</title>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">    
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
@@ -11,12 +12,42 @@
 <h1 id="title">Contact Manager</h1>
 
 <div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
-	<span id="loginResult"></span>
+    <span id="inner-title">PLEASE LOG IN</span>
+    <input type="text" id="loginName" placeholder="Username" /><br />
+    <input type="password" id="loginPassword" placeholder="Password"/><br />
+    <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
+    <span id="loginResult"></span>
 </div>
+
+<div id="registerDiv" style="display: none;">
+    <span id="inner-title">REGISTER</span>
+    <input type="text" id="registerFirstName" placeholder="First Name" /><br />
+    <input type="text" id="registerLastName" placeholder="Last Name" /><br />
+    <input type="text" id="registerYachtRegistration" placeholder="Yacht Registration" /><br />
+    <input type="text" id="registerLogin" placeholder="Login" /><br />
+    <input type="password" id="registerPassword" placeholder="Password"/><br />
+    <button type="button" id="registerButton" class="buttons" onclick="doRegister();"> Register </button>
+    <span id="registerResult"></span>
+    <button type="button" id="backToLoginButton" class="buttons" onclick="backToLoginForm();"> Back to Login </button>
+</div>
+
+<button type="button" id="showRegisterButton" class="buttons" onclick="showRegisterForm();"> Register </button>
+
+<script>
+    function showRegisterForm() {
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("registerDiv").style.display = "block";
+        document.getElementById("showRegisterButton").style.display = "none"; // Hide the standalone "Register" button
+    }
+
+    function backToLoginForm() {
+        document.getElementById("loginDiv").style.display = "block";
+        document.getElementById("registerDiv").style.display = "none";
+        document.getElementById("showRegisterButton").style.display = "block"; // Show the "Register" button again
+    }
+</script>
 
 </body>
 </html>
+
+
