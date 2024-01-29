@@ -16,7 +16,11 @@ function doLogin()
 	
 	document.getElementById("loginResult").innerHTML = "";
 
-	let tmp = {Login:login,Password:password};
+	let tmp = 
+	{
+		Login: login,
+		Password: password
+	};
 
 	// data to send to server (body of HTTP request)
 	let jsonPayload = JSON.stringify( tmp );
@@ -73,18 +77,19 @@ function doRegister()
     if (firstName === "" || lastName === "" || yachtRegistration === "" || login === "" || password === "") 
 	{
         document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields.";
-        return; // exit the function if any field is blank
+        // exit the function if any field is blank
+		return; 
     }
 
 	document.getElementById("registerResult").innerHTML = "";
 
 	let tmp = 
 	{
-        FirstName:firstName,
-        LastName:lastName,
-        YachtRegistration:yachtRegistration,
-        Login:login,
-        Password:password
+        FirstName: firstName,
+        LastName: lastName,
+        YachtRegistration: yachtRegistration,
+        Login: login,
+        Password: password
     };
 
 	// data to send to server (body of HTTP request)
@@ -110,6 +115,7 @@ function doRegister()
                     document.getElementById("registerResult").innerHTML = "Registration successful. Please login.";
             }
         };
+		// sends HTTP request to server
         xhr.send(jsonPayload);
 
     } 
@@ -170,15 +176,62 @@ function doLogout()
 }
 
 
+function isValidEmail(email) 
+{
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPhoneNumber(phone) 
+{
+    let phoneRegex = /^[\d\-]+$/;
+    return phoneRegex.test(phone);
+}
+
 function addContact()
 {
-	let newContact = document.getElementById("contactText").value;
-	document.getElementById("contactAddResult").innerHTML = "";
+	let firstName = document.getElementById("contactFirstName").value;
+    let lastName = document.getElementById("contactLastName").value;
+	let yachtName = document.getElementById("contactYachtName").value;
+    let yachtSize = document.getElementById("contactYachtSize").value;
+	let phone = document.getElementById("contactPhone").value;
+    let email = document.getElementById("contactEmail").value;
+	let id = document.getElementById("userId").value;
 
-	let tmp = {contact:newContact,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
+    // check if any of the fields are blank
+    if (firstName === "" || lastName === "" || yachtName === "" || yachtSize === "" || phone === "" || email === "" || id === "") 
+	{
+        document.getElementById("contactAddResult").innerHTML = "Please fill in all the registration fields.";
+        // exit the function if any field is blank
+		return;
+    }
 
-	let url = urlBase + '/AddContact.' + extension;
+	if (!isValidPhoneNumber(phone)) 
+	{
+        document.getElementById("contactAddResult").innerHTML = "Please enter a valid phone number (numbers and/or dashes).";
+        return;
+    }
+
+	if (!isValidEmail(email)) 
+	{
+        document.getElementById("contactAddResult").innerHTML = "Please enter a valid email address.";
+        return;
+    }
+
+	let tmp =
+	{
+		FirstName: firstName,
+		LastName: lastName,
+		YachtName: yachtName,
+		YachtSize: yachtSize,
+		Phone: phone,
+		Email: email,
+		UserID: id
+	};
+
+	// data to send to server (body of HTTP request)
+	let jsonPayload = JSON.stringify(tmp);
+	
+	let url = urlBase + '/Add.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -191,7 +244,12 @@ function addContact()
 			{
 				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
+			else
+			{
+                document.getElementById("contactAddResult").innerHTML = "Error: " + xhr.responseText;
+			}
 		};
+		// sends HTTP request to server
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -245,4 +303,3 @@ function searchContact()
 	}
 	
 }
-
