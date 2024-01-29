@@ -195,10 +195,9 @@ function addContact()
     let yachtSize = document.getElementById("contactYachtSize").value;
 	let phone = document.getElementById("contactPhone").value;
     let email = document.getElementById("contactEmail").value;
-	let id = document.getElementById("userId").value;
 
     // check if any of the fields are blank
-    if (firstName === "" || lastName === "" || yachtName === "" || yachtSize === "" || phone === "" || email === "" || id === "") 
+    if (firstName === "" || lastName === "" || yachtName === "" || yachtSize === "" || phone === "" || email === "") 
 	{
         document.getElementById("contactAddResult").innerHTML = "Please fill in all the registration fields.";
         // exit the function if any field is blank
@@ -225,7 +224,7 @@ function addContact()
 		YachtSize: yachtSize,
 		Phone: phone,
 		Email: email,
-		UserID: id
+		UserID: userId
 	};
 
 	// data to send to server (body of HTTP request)
@@ -259,6 +258,8 @@ function addContact()
 	
 }
 
+
+// not functional yet
 function searchContact()
 {
 	let srch = document.getElementById("searchText").value;
