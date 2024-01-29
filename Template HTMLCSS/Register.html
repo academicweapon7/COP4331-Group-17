@@ -1,0 +1,80 @@
+<html>
+	
+<head>
+	<title>Register</title>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">	
+
+	<nav>
+		<ul class="nav-links">
+			<li>
+				<a href="LandingPage.html">
+					<button>Home</button>
+				</a>
+			</li>
+
+		  	<li>
+				<a href="About.html">
+					<button>About Us</button>
+				</a>
+			</li>
+
+		  	<li>
+				<a href="Login.html">
+					<button>Login/Register</button>
+				</a>
+			</li>
+		</ul>
+
+        <h1 id="title">Leinecker's Yacht Club</h1>
+		
+		<img src="images/Anchor_away_transparent.png" class="Logo" style="width: 100px; height: 100px;">
+		
+	</nav>
+
+</head>
+
+
+<body style="background-size: cover; background-image: url('images/francesco-tommasini-mAxrZe6ttl4-unsplash.jpg'); margin: 0;"></body>
+
+<!-- Register div: includes username, password, first name, last name-->
+<div id="loginDiv" style="height: 450px; margin-top: 2%; width: 500px; font-family: Sail-Regular;" >
+	
+	<center>
+        <span id="inner-title" style="font-size: 30px;">Please Enter Your Information</span><br>
+
+        <div class="form-group">
+            <label for="loginName">Username:</label>
+            <input type="text" id="User" placeholder="Username" style="font-family: Sail-Regular;" /><br />
+        </div>
+
+        <div class="form-group">
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="password" placeholder="Password" style="font-family: Sail-Regular;" /><br />
+        </div>
+
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" placeholder="First Name" style="font-family: Sail-Regular;" /><br />
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" placeholder="Last Name" style="font-family: Sail-Regular;" /><br />
+        </div>
+
+        <!-- Create Account button (Not set up yet as JS hasn't been applied)-->
+        <button type="button" onclick="window.location.href='';" class="logbutton">
+			Create Account
+        </button>
+        
+        <!-- Return to login button -->
+        <button type="button" onclick="window.location.href='Login.html';" class="logbutton">
+			Return To Login
+        </button>
+	</center>
+	
+</div>
+</body>
+</html>
