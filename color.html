@@ -10,7 +10,33 @@
     {
         readCookie();
     }, false);
+    
+    // Function to trigger search when Enter key is pressed
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) {
+            searchContact();
+        }
+    }
+
+    // Function to toggle visibility of add contact form
+    function toggleAddContactForm(button) {
+        var addContactForm = document.getElementById("addContactForm");
+        addContactForm.classList.toggle("hidden");
+        
+        // Change button text based on form visibility
+        if (addContactForm.classList.contains("hidden")) {
+            button.innerHTML = "Add Contact";
+        } else {
+            button.innerHTML = "Cancel";
+        }
+    }
     </script>
+    
+    <style>
+    .hidden {
+        display: none;
+    }
+    </style>
     
 </head>
 <body>
@@ -25,19 +51,36 @@
 <div id="accessUIDiv">
     <br />
 
-    <!-- Input fields for contact information -->
-    <input type="text" id="contactFirstName" placeholder="First Name">
-    <input type="text" id="contactLastName" placeholder="Last Name">
-	<input type="text" id="contactYachtName" placeholder="Yacht Name">
-    <input type="text" id="contactYachtSize" placeholder="Yacht Size">
-    <input type="text" id="contactPhone" placeholder="Phone">
-    <input type="text" id="contactEmail" placeholder="Email">
+    <!-- Button to toggle add contact form -->
+    <button type="button" id="toggleAddContactButton" class="buttons" onclick="toggleAddContactForm(this);"> Add Contact </button><br />
 
-    <!-- Button to add contact -->
-    <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
+    <!-- Add contact form -->
+    <div id="addContactForm" class="hidden">
+        <!-- Input fields for contact information -->
+        <input type="text" id="contactFirstName" placeholder="First Name">
+        <input type="text" id="contactLastName" placeholder="Last Name">
+        <input type="text" id="contactYachtName" placeholder="Yacht Name">
+        <input type="text" id="contactYachtSize" placeholder="Yacht Size">
+        <input type="text" id="contactPhone" placeholder="Phone">
+        <input type="text" id="contactEmail" placeholder="Email">
 
-    <!-- Display result of adding contact -->
-    <span id="contactAddResult"></span>
+        <!-- Button to add contact -->
+        <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button><br />
+
+        <!-- Display result of adding contact -->
+        <span id="contactAddResult"></span>
+    </div>
+
+    <br />
+    
+    <!-- Input field for search -->
+    <input type="text" id="searchText" placeholder="Search" onkeypress="handleKeyPress(event);">
+    <!-- Button to trigger search -->
+    <button type="button" id="searchButton" class="buttons" onclick="searchContact();"> Search </button><br />
+
+    <!-- Display result of search -->
+    <span id="contactSearchResult"></span>
+    <div id="contactResults"></div>
 </div>
 
 </body>
