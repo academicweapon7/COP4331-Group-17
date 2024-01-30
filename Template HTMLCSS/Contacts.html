@@ -1,73 +1,113 @@
+<!DOCTYPE html>
 <html>
-	
 <head>
-	<title>Contacts</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-	<script type="text/javascript" src="js/contacts.js"></script>
-    <link href="CSS/contacts.css" rel="stylesheet">	
-	<link href="CSS/styles.css" rel="stylesheet">	
-
-	<nav>
-		<ul class="nav-links">
-			<li>
-				<a href="LandingPage.html">
-					<button>Home</button>
-				</a>
-			</li>
-
-		  	<li>
-				<a href="About.html">
-					<button>About Us</button>
-				</a>
-			</li>
-
-		  	<li>
-				<a href="Login.html">
-					<button>Login/Register</button>
-				</a>
-			</li>
-		</ul>
-
-		<h1 id="title">Leinecker's Yacht Club</h1>
-		
-		<img src="images/Anchor_away_transparent.png" class="Logo" style="width: 100px; height: 100px;">
-		
-	</nav>
+    <title>Contacts</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/contacts.js"></script>
+    <link href="css/contacts.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 
-<body style="background-size: cover; background-image: url('images/francesco-tommasini-mAxrZe6ttl4-unsplash.jpg'); margin: 0;"></body>
+<body style="background-size: cover; background-image: url('images/francesco-tommasini-mAxrZe6ttl4-unsplash.jpg'); margin: 0;">
 
-<h1 id="title" style="font-size: 70; position: relative;">Contact List</h1>
+    <nav>
+        <ul class="nav-links">
+            <li>
+                <a href="index.html">
+                    <button>Home</button>
+                </a>
+            </li>
 
-<!-- Table with contacts -->
-<div class="container">
-	
-    <table id="contactTable">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Yacht Name</th>
-				<th>Yacht Size</th>
-                <th>Phone</th>
-                <th>Email</th>
-            </tr>
-        </thead>
+            <li>
+                <a href="About.html">
+                    <button>About Us</button>
+                </a>
+            </li>
 
-		<!-- This is where the actual contacts go -->
-        <tbody id="contactRows">
-			<!-- Placeholder row -->
-			<tr id="placeholderRow">
-				<!-- Incase there is no available -->
-				<td colspan="3">No contacts available</td>
-			</tr>
-		</tbody>
-		
-    </table>
-    <button id="addContact">Add Contact</button>
-</div>
+            <li>
+                <a href="Login.html">
+                    <button>Login/Register</button>
+                </a>
+            </li>
+        </ul>
 
-<script src="script.js"></script>
+        <h1 id="title">Leinecker's Yacht Club</h1>
+
+        <img src="images/Anchor_away_transparent.png" class="Logo" style="width: 100px; height: 100px;">
+
+    </nav>
+
+    <h1>Contact List</h1>
+
+    <!-- Table with contacts -->
+    <div class="container">
+        <div style="display: flex; align-items: center;">
+            <table id="contactTable">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Yacht Name</th>
+                        <th>Yacht Size</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <!-- This is where the actual contacts go -->
+                <tbody id="contactRows">
+                    <!-- Placeholder row -->
+                    <tr id="placeholderRow">
+                        <!-- In case there are no available contacts -->
+                        <td colspan="7">No contacts available</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Add Contact and Delete Contact buttons -->
+            <div>
+                <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add Contact</button>
+                <button class="addContact" style="width: 100px; height: 50px; font-size: 25px; padding: 0; margin-top: 2%;" onclick="deleteContact()">Delete Contact</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Contact Form Modal -->
+    <div id="addContactModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddContactForm()">&times;</span>
+            <h2>Add Contact</h2>
+            <div>
+                <label for="firstName" class="label">First Name:</label>
+                <input type="text" id="firstName" placeholder="Enter first name">
+            </div>
+            <div>
+                <label for="lastName" class="label">Last Name:</label>
+                <input type="text" id="lastName" placeholder="Enter last name">
+            </div>
+            <div>
+                <label for="yachtName" class="label">Yacht Name:</label>
+                <input type="text" id="yachtName" placeholder="Enter yacht name">
+            </div>
+            <div>
+                <label for="yachtSize" class="label">Yacht Size:</label>
+                <input type="text" id="yachtSize" placeholder="Enter yacht size">
+            </div>
+            <div>
+                <label for="phone" class="label">Phone:</label>
+                <input type="text" id="phone" placeholder="Enter phone number">
+            </div>
+            <div>
+                <label for="email" class="label">Email:</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="addcontact-button">
+                <button onclick="addContact()">Add</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
