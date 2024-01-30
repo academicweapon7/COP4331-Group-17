@@ -12,9 +12,9 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ?) and UserID=?");
-		$colorName = "%" . $inData["Search"] . "%";
-		$stmt->bind_param("sss", $colorName, $colorName, $inData["UserID"]);
+        	$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email, YachtName FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ?) AND UserID=?");
+        	$searchName = "%" . $inData["Search"] . "%";
+       		$stmt->bind_param("sss", $searchName, $searchName, $inData["UserID"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -26,7 +26,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", "YachtName" : "' . $row["YachtName"] . '"}';
+            		$searchResults .= '{"ID": "' . $row["ID"] . '", "FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", "YachtName" : "' . $row["YachtName"] . '"}';
     }
 
 		if( $searchCount == 0 )
