@@ -52,8 +52,8 @@ function doLogin()
 					return;
 				}
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 				saveCookie();
 
@@ -388,7 +388,7 @@ function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime() + (minutes * 60 * 1000));	
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
