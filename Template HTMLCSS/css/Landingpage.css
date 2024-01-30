@@ -1,0 +1,14 @@
+#homeTitle
+{
+    font-family: Sail-Regular;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+
+    text-shadow:
+    -1px -1px 0 #ffffff,
+    1px -1px 0 #ffffff,
+    -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
+    
+    text-align: center;
+}

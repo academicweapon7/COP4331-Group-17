@@ -1,0 +1,12 @@
+#loginDiv
+{
+    border-style:outset;
+    border-color: rgb(0, 7, 105);
+    font-size: 60px;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    border-radius: 25px; 
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+}

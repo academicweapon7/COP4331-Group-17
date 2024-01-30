@@ -1,0 +1,13 @@
+.box {
+    font-family: Sail-Regular;
+    border-style: outset;
+    border-color: rgb(0, 7, 105);
+    font-size: 30px;
+    width: 20%;
+    height: 400px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255);
+    margin: 100px; /* Adjust margin between boxes */
+    text-align: center;
+}

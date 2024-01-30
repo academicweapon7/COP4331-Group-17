@@ -1,0 +1,63 @@
+body {
+    font-family: Sail-Regular;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 60px;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-style: none;
+}
+
+table th, table td {
+    padding: 15px; /* Increased padding */
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 18px; /* Increased font size */
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-size: 35px; /* Increased font size */
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(0, 7, 105);
+    transition: color .3s ease;
+    border-style: outset;
+    
+}
+
+#addContact {
+    font-family: Sail-regular;
+    padding: 15px 45px; /* Increased padding */
+    font-size: 40px; /* Increased font size */
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(0, 0, 0);
+    text-align: center;
+    color: #000000;
+    transition: color .3s ease;
+    border-style: outset;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#addContact:hover {
+    background-color: rgb(0, 7, 105);
+    color: #ffffff;
+    opacity: 100%;
+}
+
+.removeContact {
+    color: #f00;
+    cursor: pointer;
+}
