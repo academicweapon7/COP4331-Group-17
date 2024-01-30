@@ -15,7 +15,7 @@ function doLogin()
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
 
-	// *** return blank ?? for what purpose ***
+	// clear existing result message
 	document.getElementById("loginResult").innerHTML = "";
 
 	// JSON formatting
@@ -81,15 +81,15 @@ function doRegister()
     let login = document.getElementById("registerLogin").value;
     let password = document.getElementById("registerPassword").value;
 
+	// clear existing result message
+	document.getElementById("registerResult").innerHTML = "";
+
     // check blank fields
     if (checkBlankFields(firstName, lastName, yachtRegistration, login, password)) 
 	{
         document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields.";
         return;
     }
-
-	// *** return blank ?? for what purpose ***
-	document.getElementById("registerResult").innerHTML = "";
 
 	// JSON formatting
 	let tmp = 
@@ -156,6 +156,9 @@ function addContact()
     let yachtSize = document.getElementById("contactYachtSize").value;
 	let phone = document.getElementById("contactPhone").value;
     let email = document.getElementById("contactEmail").value;
+
+	// clear existing result message
+	document.getElementById("contactAddResult").innerHTML = "";
 
     if (checkBlankFields(firstName, lastName, yachtName, yachtSize, phone, email)) 
 	{
@@ -227,7 +230,7 @@ function searchContact()
 	// collect value from form
     let searchInput = document.getElementById("searchText").value.trim();
 
-	// *** again why ?? ***
+	// clear existing result message
     document.getElementById("contactSearchResult").innerHTML = "";
 
     if (isEmpty(searchInput)) {
@@ -313,46 +316,56 @@ function searchContact()
 }
 
 // *** not functional ***
-function deleteContact(contactId) 
+function deleteContact() 
 {
-    let confirmation = confirm("Are you sure you want to delete this contact?");
+    // collect value from form
+    let contactId = document.getElementById("deleteContactId").value;
+
+	// clear existing result message
+	document.getElementById("deleteResult").innerHTML = "";
     
-	if (confirmation) 
+    // *** change me ***
+    if (contactId.trim() === "") {
+        alert("Please enter a contact ID.");
+        return;
+    }
+
+    let confirmation = confirm("Are you sure you want to delete contact with ID " + contactId + "?");
+    
+    if (confirmation) 
 	{
-		// JSON formatting
-        let tmp = 
-		{
-            ContactID: contactId
+        // JSON formatting
+        let tmp = {
+            ID: contactId
         };
 
         let jsonPayload = JSON.stringify(tmp);
 
-		// same steps as Postman
+        // same steps as Postman
         let url = urlBase + '/Delete.' + extension;
         let xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-		// *** implement try/catch ***
-
-		// event handler
         xhr.onreadystatechange = function() 
 		{
-            if (this.readyState == 4 && this.status == 200) 
+            if (this.readyState == 4) 
 			{
-                document.getElementById("contactSearchResult").innerHTML = "Contact deleted successfully.";
-                // refresh search results after deletion
-                searchContact();
-			}
-            else
-			{
-                document.getElementById("contactSearchResult").innerHTML = "Error deleting contact.";
+                if (this.status == 200) 
+				{
+                    alert("Contact with ID " + contactId + " deleted successfully.");
+                } 
+				else 
+				{
+                    alert("Error deleting contact.");
+                }
             }
         };
-		// sends HTTP request to server
+        // sends HTTP request to server
         xhr.send(jsonPayload);
-	}
+    }
 }
+
 
 // helper functions
 
