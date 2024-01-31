@@ -58,7 +58,7 @@ function doLogin()
 				saveCookie();
 
 				// takes user to next page
-				window.location.href = "color.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		// sends HTTP request to server
@@ -69,7 +69,6 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-
 }
 
 function doRegister()
@@ -438,4 +437,15 @@ function readCookie()
 	{
 		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
+}
+
+function showAddContactForm() 
+{
+   var modal = document.getElementById("addContactModal");
+   modal.style.display = "block";
+}
+
+function closeAddContactForm() 
+{
+    document.getElementById("addContactModal").style.display = "none";
 }
