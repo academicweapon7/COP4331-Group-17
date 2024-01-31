@@ -45,29 +45,35 @@
         <span id="inner-title" style="font-size: 30px;">Please Enter Your Information</span><br>
 
         <div class="form-group">
-            <label for="loginName">Username:</label>
-            <input type="text" id="User" placeholder="Username" style="font-family: Sail-Regular;" /><br />
+            <label for="registerLogin">Username:</label>
+            <input type="text" id="registerLogin" placeholder="Username" style="font-family: Sail-Regular;" /><br />
         </div>
 
         <div class="form-group">
-            <label for="loginPassword">Password:</label>
-            <input type="password" id="password" placeholder="Password" style="font-family: Sail-Regular;" /><br />
+            <label for="registerPassword">Password:</label>
+            <input type="password" id="registerPassword" placeholder="Password" style="font-family: Sail-Regular;" /><br />
         </div>
 
         <div class="form-group">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" placeholder="First Name" style="font-family: Sail-Regular;" /><br />
+            <label for="registerFirstName">First Name:</label>
+            <input type="text" id="registerFirstName" placeholder="First Name" style="font-family: Sail-Regular;" /><br />
         </div>
 
         <div class="form-group">
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" placeholder="Last Name" style="font-family: Sail-Regular;" /><br />
+            <label for="registerLastName">Last Name:</label>
+            <input type="text" id="registerLastName" placeholder="Last Name" style="font-family: Sail-Regular;" /><br />
         </div>
 
-        <!-- Create Account button (Not set up yet as JS hasn't been applied)-->
-        <button type="button" onclick="window.location.href='';" class="logbutton">
-			Create Account
+		<div class="form-group">
+            <label for="registerYachtRegistration">Yacht Registration:</label>
+            <input type="text" id="registerYachtRegistration" placeholder="Yacht Registration" style="font-family: Sail-Regular;" /><br />
+        </div>
+
+        <button type="button" onclick="doRegister();" class="logbutton">
+            Register
         </button>
+
+		<span id="registerResult"></span>
         
         <!-- Return to login button -->
         <button type="button" onclick="window.location.href='login.html';" class="logbutton">
