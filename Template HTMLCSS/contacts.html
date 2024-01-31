@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="js/md5.js"></script>
     <script type="text/javascript" src="js/code.js"></script>
-    <script type="text/javascript" src="js/contacts.js"></script>
     <link href="css/contacts.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 </head>
@@ -81,32 +80,34 @@
             <span class="close" onclick="closeAddContactForm()">&times;</span>
             <h2>Add Contact</h2>
             <div>
-                <label for="firstName" class="label">First Name:</label>
-                <input type="text" id="firstName" placeholder="Enter first name">
+                <label for="contactFirstName" class="label">First Name:</label>
+                <input type="text" id="contactFirstName" placeholder="Enter first name">
             </div>
             <div>
-                <label for="lastName" class="label">Last Name:</label>
-                <input type="text" id="lastName" placeholder="Enter last name">
+                <label for="contactLastName" class="label">Last Name:</label>
+                <input type="text" id="contactLastName" placeholder="Enter last name">
             </div>
             <div>
-                <label for="yachtName" class="label">Yacht Name:</label>
-                <input type="text" id="yachtName" placeholder="Enter yacht name">
+                <label for="contactYachtName" class="label">Yacht Name:</label>
+                <input type="text" id="contactYachtName" placeholder="Enter yacht name">
             </div>
             <div>
-                <label for="yachtSize" class="label">Yacht Size:</label>
-                <input type="text" id="yachtSize" placeholder="Enter yacht size">
+                <label for="contactYachtSize" class="label">Yacht Size:</label>
+                <input type="text" id="contactYachtSize" placeholder="Enter yacht size">
             </div>
             <div>
-                <label for="phone" class="label">Phone:</label>
-                <input type="text" id="phone" placeholder="Enter phone number">
+                <label for="contactPhone" class="label">Phone:</label>
+                <input type="text" id="contactPhone" placeholder="Enter phone number">
             </div>
             <div>
-                <label for="email" class="label">Email:</label>
-                <input type="text" id="email" placeholder="Enter email">
+                <label for="contactEmail" class="label">Email:</label>
+                <input type="text" id="contactEmail" placeholder="Enter email">
             </div>
-            <div class="addcontact-button">
-                <button onclick="addContact()">Add</button>
+            <div>
+                <button type="button" id="addContactButton" class="addcontact-button" onclick="addContact();"> Add Contact </button><br />
             </div>
+
+            <span id="contactAddResult"></span>
         </div>
     </div>
 </body>
