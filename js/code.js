@@ -85,12 +85,12 @@ function doRegister()
 
     if (checkBlankFields(firstName, lastName, yachtRegistration, login, password)) 
 	{
-        document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields.";
+        document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields";
         return;
     }
 
 	if (!checkPasswordComplexity(password)) {
-        document.getElementById("registerResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character.";
+        document.getElementById("registerResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character";
         return;
     }
 
@@ -124,11 +124,11 @@ function doRegister()
 				// response from server
                 let response = JSON.parse(xhr.responseText);
 
-				// *** is this right name ? ***
+				// username taken
                 if (response.error)
                     document.getElementById("registerResult").innerHTML = response.error;
                 else
-                    document.getElementById("registerResult").innerHTML = "Registration successful. Please login.";
+                    document.getElementById("registerResult").innerHTML = "Registration successful. Please login";
             }
         };
 		// sends HTTP request to server
@@ -368,7 +368,6 @@ function deleteContact()
         xhr.send(jsonPayload);
     }
 }
-
 
 // helper functions
 
