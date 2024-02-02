@@ -83,10 +83,14 @@ function doRegister()
 	// clear existing result message
 	document.getElementById("registerResult").innerHTML = "";
 
-    // check blank fields
     if (checkBlankFields(firstName, lastName, yachtRegistration, login, password)) 
 	{
         document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields.";
+        return;
+    }
+
+	if (!checkPasswordComplexity(password)) {
+        document.getElementById("registerResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character.";
         return;
     }
 
@@ -371,6 +375,19 @@ function deleteContact()
 function isEmpty(value) 
 {
     return value.trim() === "";
+}
+
+
+function checkPasswordComplexity(password) 
+{
+	let uppercaseRegex = /[A-Z]/;
+    let lowercaseRegex = /[a-z]/;
+    let specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    return password.length >= 8 &&
+        uppercaseRegex.test(password) &&
+        lowercaseRegex.test(password) &&
+        specialCharacterRegex.test(password);
 }
 
 function checkBlankFields(...fields) 
