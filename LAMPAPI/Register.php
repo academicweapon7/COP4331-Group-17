@@ -20,7 +20,7 @@
 		// Login already exists, return an error
 		if ( $row = $result->fetch_assoc())
 		{
-			returnWithError( $Login, "Login is already in use.");
+			returnWithError("Username '" . $Login . "' is already in use");
 		}
 		
 		// Add new user
