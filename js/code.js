@@ -465,3 +465,11 @@ function closeAddContactForm()
 {
     document.getElementById("addContactModal").style.display = "none";
 }
+
+function handleKeyPress(event) 
+{
+	if (event.keyCode === 13) 
+	{
+		searchContact();
+	}
+}
