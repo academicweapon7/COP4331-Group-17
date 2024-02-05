@@ -38,6 +38,11 @@
 
     </nav>
 
+    <div id="loggedInDiv" style="text-align: center;">
+        <span id="userName"></span><br />
+        <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>    
+
     <h1>Contact List</h1>
 
     <!-- Table with contacts -->
@@ -72,6 +77,16 @@
                 <button class="addContact" style="width: 100px; height: 50px; font-size: 25px; padding: 0; margin-top: 2%;" onclick="deleteContact()">Delete Contact</button>
             </div>
         </div>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <input type="text" id="searchText" placeholder="Search" onkeypress="handleKeyPress(event);">
+        <button type="button" id="searchButton" class="buttons" onclick="searchContact();"> Search </button>
+    </div>    
+    
+    <div style="display: flex; justify-content: center;">
+        <span id="contactSearchResult"></span>
+        <div id="contactResults"></div>
     </div>
 
     <!-- Add Contact Form Modal -->
