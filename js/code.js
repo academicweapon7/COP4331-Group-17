@@ -2,6 +2,7 @@ const urlBase = 'http://cop4331-17.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
+let selectedId = 0;
 let firstName = "";
 let lastName = "";
 
@@ -12,11 +13,11 @@ function doLogin()
 	lastName = "";
 	
 	// collect values from form
-	let login = document.getElementById("loginName").value;
+	let login = document.getElementById("loginUsername").value;
 	let password = document.getElementById("loginPassword").value;
 
 	// clear existing result message
-	document.getElementById("loginResult").innerHTML = "";
+	document.getElementById("doLoginResult").innerHTML = "";
 
 	// JSON formatting
 	let tmp = 
@@ -43,12 +44,12 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				// response from server
-				let jsonObject = JSON.parse( xhr.responseText );
+				let jsonObject = JSON.parse(xhr.responseText);
 				userId = jsonObject.ID;
 		
 				if (userId < 1)
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("doLoginResult").innerHTML = "User/Password combination incorrect";
 					return;
 				}
 		
@@ -59,6 +60,8 @@ function doLogin()
 
 				// takes user to next page
 				window.location.href = "contacts.html";
+
+				readCookie();
 			}
 		};
 		// sends HTTP request to server
@@ -67,7 +70,7 @@ function doLogin()
 	// handles exceptions during request execution
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("doLoginResult").innerHTML = err.message;
 	}
 }
 
@@ -77,20 +80,20 @@ function doRegister()
 	let firstName = document.getElementById("registerFirstName").value;
     let lastName = document.getElementById("registerLastName").value;
     let yachtRegistration = document.getElementById("registerYachtRegistration").value;
-    let login = document.getElementById("registerLogin").value;
+    let username = document.getElementById("registerUsername").value;
     let password = document.getElementById("registerPassword").value;
 
 	// clear existing result message
-	document.getElementById("registerResult").innerHTML = "";
+	document.getElementById("doRegisterResult").innerHTML = "";
 
-    if (checkBlankFields(firstName, lastName, yachtRegistration, login, password)) 
+    if (checkBlankFields(firstName, lastName, yachtRegistration, username, password)) 
 	{
-        document.getElementById("registerResult").innerHTML = "Please fill in all the registration fields";
+        document.getElementById("doRegisterResult").innerHTML = "Please fill in all the registration fields";
         return;
     }
 
 	if (!checkPasswordComplexity(password)) {
-        document.getElementById("registerResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character";
+        document.getElementById("doRegisterResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character";
         return;
     }
 
@@ -100,7 +103,7 @@ function doRegister()
         FirstName: firstName,
         LastName: lastName,
         YachtRegistration: yachtRegistration,
-        Login: login,
+        Login: username,
         Password: password
     };
 
@@ -126,9 +129,9 @@ function doRegister()
 
 				// username taken
                 if (response.error)
-                    document.getElementById("registerResult").innerHTML = response.error;
+                    document.getElementById("doRegisterResult").innerHTML = response.error;
                 else
-                    document.getElementById("registerResult").innerHTML = "Registration successful. Please login";
+                    document.getElementById("doRegisterResult").innerHTML = "Registration successful. Please login";
             }
         };
 		// sends HTTP request to server
@@ -137,10 +140,11 @@ function doRegister()
 	// handles exceptions during request execution (network errors)
 	catch (err) 
 	{
-        document.getElementById("registerResult").innerHTML = err.message;
+        document.getElementById("doRegisterResult").innerHTML = err.message;
     }
 }
 
+// *** add some document messages ***
 function doLogout()
 {
 	userId = 0;
@@ -152,6 +156,8 @@ function doLogout()
 
 function addContact()
 {
+	readCookie();
+
 	// collect values from form
 	let firstName = document.getElementById("contactFirstName").value;
     let lastName = document.getElementById("contactLastName").value;
@@ -161,23 +167,23 @@ function addContact()
     let email = document.getElementById("contactEmail").value;
 
 	// clear existing result message
-	document.getElementById("contactAddResult").innerHTML = "";
+	document.getElementById("addContactResult").innerHTML = "";
 
     if (checkBlankFields(firstName, lastName, yachtName, yachtSize, phone, email)) 
 	{
-        document.getElementById("contactAddResult").innerHTML = "Please fill in all the fields.";
+        document.getElementById("addContactResult").innerHTML = "Please fill in all the fields";
         return;
     }
 
 	if (!isValidPhoneNumber(phone)) 
 	{
-        document.getElementById("contactAddResult").innerHTML = "Please enter a valid phone number (numbers and/or dashes).";
+        document.getElementById("addContactResult").innerHTML = "Please enter a valid phone number (numbers and/or dashes)";
         return;
     }
 
 	if (!isValidEmail(email)) 
 	{
-        document.getElementById("contactAddResult").innerHTML = "Please enter a valid email address.";
+        document.getElementById("addContactResult").innerHTML = "Please enter a valid email address";
         return;
     }
 
@@ -210,11 +216,11 @@ function addContact()
 			// complete and successful request
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				document.getElementById("addContactResult").innerHTML = "Contact has been added";
 			}
 			else
 			{
-                document.getElementById("contactAddResult").innerHTML = "Error: " + xhr.responseText;
+                document.getElementById("addContactResult").innerHTML = "Error: " + xhr.responseText;
 			}
 		};
 		// sends HTTP request to server
@@ -223,7 +229,7 @@ function addContact()
 	// handles exceptions during request execution (network errors)
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		document.getElementById("addContactResult").innerHTML = err.message;
 	}
 	
 }
@@ -233,21 +239,22 @@ function searchContact()
 	readCookie();
 
 	// collect value from form
-    let searchInput = document.getElementById("searchText").value.trim();
+    let searchText = document.getElementById("searchText").value.trim();
 
 	// clear existing result message
-    document.getElementById("contactSearchResult").innerHTML = "";
+    document.getElementById("searchContactResult").innerHTML = "";
 
-    if (isEmpty(searchInput)) {
-        document.getElementById("contactResults").innerHTML = "";
-        document.getElementById("contactSearchResult").innerHTML = "Please enter a search term.";
+    if (isEmpty(searchText)) 
+	{
+        document.getElementById("contactList").innerHTML = "";
+        document.getElementById("searchContactResult").innerHTML = "Please enter a search term";
         return;
     }
 
 	// JSON formatting
     let tmp = 
 	{
-        Search: searchInput,
+        Search: searchText,
         UserID: userId
     };
 
@@ -273,15 +280,15 @@ function searchContact()
 
                 if (jsonObject.error === "") 
 				{
-                    let contactResults = jsonObject.results;
+                    let contactResult = jsonObject.results;
 
-                    if (contactResults.length > 0) 
+                    if (contactResult.length > 0) 
 					{
                         let contactList = "";
 
-                        for (let i = 0; i < contactResults.length; i++) 
+                        for (let i = 0; i < contactResult.length; i++) 
 						{
-                            let contact = contactResults[i];
+                            let contact = contactResult[i];
 
                             // formatting list of contacts
                             contactList += "First Name: " + contact.FirstName + "<br />";
@@ -297,21 +304,19 @@ function searchContact()
 
                         }
 						// show list of contacts
-                        document.getElementById("contactResults").innerHTML = contactList;
-                        document.getElementById("contactSearchResult").innerHTML = "Contacts retrieved.";
+                        document.getElementById("contactList").innerHTML = contactList;
+                        document.getElementById("searchContactResult").innerHTML = "Contacts retrieved.";
                     } 
 					else 
 					{
-						// clear previous contact results
-                        document.getElementById("contactResults").innerHTML = "";
-                        document.getElementById("contactSearchResult").innerHTML = "No matching contacts found.";
+						document.getElementById("contactList").innerHTML = "";
+                        document.getElementById("searchContactResult").innerHTML = "No matching contacts found.";
                     }
                 } 
 				else 
 				{
-					// clear previous contact results
-                    document.getElementById("contactResults").innerHTML = "";
-                    document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
+					document.getElementById("contactList").innerHTML = "";
+                    document.getElementById("searchContactResult").innerHTML = jsonObject.error;
                 }
             }
         };
@@ -321,32 +326,23 @@ function searchContact()
 	// handles exceptions during request execution (network errors)
 	catch (err) 
 	{
-        document.getElementById("contactSearchResult").innerHTML = err.m
+        document.getElementById("searchContactResult").innerHTML = err.message;
 	}
 }
 
-// *** not functional ***
 function deleteContact() 
 {
-    // collect value from form
-    let contactId = document.getElementById("deleteContactId").value;
-
 	// clear existing result message
-	document.getElementById("deleteResult").innerHTML = "";
-    
-    // *** change me ***
-    if (contactId.trim() === "") {
-        alert("Please enter a contact ID.");
-        return;
-    }
+	document.getElementById("deleteContactResult").innerHTML = "";
 
-    let confirmation = confirm("Are you sure you want to delete contact with ID " + contactId + "?");
+    let confirmation = confirm("Are you sure you want to delete contact?");
     
     if (confirmation) 
 	{
         // JSON formatting
-        let tmp = {
-            ID: contactId
+        let tmp = 
+		{
+            ID: selectedId
         };
 
         let jsonPayload = JSON.stringify(tmp);
@@ -359,17 +355,14 @@ function deleteContact()
 
         xhr.onreadystatechange = function() 
 		{
-            if (this.readyState == 4) 
+            if (this.readyState == 4 && this.status == 200)
 			{
-                if (this.status == 200) 
-				{
-                    alert("Contact with ID " + contactId + " deleted successfully.");
-                } 
-				else 
-				{
-                    alert("Error deleting contact.");
-                }
-            }
+				document.getElementById("deleteContactResult").innerHTML = "Contact successfully deleted";            
+			}
+            else
+			{
+				document.getElementById("deleteContactResult").innerHTML = "Contact failed to delete";            
+			}
         };
         // sends HTTP request to server
         xhr.send(jsonPayload);
@@ -470,6 +463,13 @@ function showAddContactForm()
 
 function closeAddContactForm() 
 {
+	document.getElementById("contactFirstName").value = "";
+    document.getElementById("contactLastName").value = "";
+    document.getElementById("contactYachtName").value = "";
+    document.getElementById("contactYachtSize").value = "";
+    document.getElementById("contactPhone").value = "";
+    document.getElementById("contactEmail").value = "";
+	
     document.getElementById("addContactModal").style.display = "none";
 }
 
@@ -483,6 +483,6 @@ function handleKeyPress(event)
 
 function selectContact(ID) 
 {
-	console.log("Selected ID: " + ID);
-	document.getElementById("selectedID").value = ID;
+	selectedId = ID;
+	document.getElementById("deleteButton").style.display = "block";
 }
