@@ -230,6 +230,8 @@ function addContact()
 
 function searchContact() 
 {
+	readCookie();
+
 	// collect value from form
     let searchInput = document.getElementById("searchText").value.trim();
 
@@ -282,12 +284,17 @@ function searchContact()
                             let contact = contactResults[i];
 
                             // formatting list of contacts
-                            contactList += "ID: " + contact.ID + "<br />";
                             contactList += "First Name: " + contact.FirstName + "<br />";
                             contactList += "Last Name: " + contact.LastName + "<br />";
                             contactList += "Phone: " + contact.Phone + "<br />";
                             contactList += "Email: " + contact.Email + "<br />";
-                            contactList += "Yacht Name: " + contact.YachtName + "<br /><br />";
+                            contactList += "Yacht Name: " + contact.YachtName + "<br />";
+							contactList += "Yacht Size: " + contact.YachtSize + "<br /><br />";
+
+							
+							// select button
+							contactList += "<button onclick='selectContact(" + contact.ID + ")'>Select</button><br /><br />";
+
                         }
 						// show list of contacts
                         document.getElementById("contactResults").innerHTML = contactList;
@@ -472,4 +479,10 @@ function handleKeyPress(event)
 	{
 		searchContact();
 	}
+}
+
+function selectContact(ID) 
+{
+	console.log("Selected ID: " + ID);
+	document.getElementById("selectedID").value = ID;
 }
