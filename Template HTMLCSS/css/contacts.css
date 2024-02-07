@@ -5,9 +5,20 @@ body
 
 .container 
 {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-container 
+{
+    width: 100%;
+    overflow-x: auto;
+}
+
+.search-results-container 
+{
+    width: 100%;
+    margin-top: 20px;
 }
 
 h1 
@@ -32,13 +43,14 @@ table
     border-style: none;
 }
 
-table th, table td 
+table th, table td
 {
-    padding: 15px; /* Increased padding */
+    padding: 18px;
     border-bottom: 1px solid #ddd;
-    text-align: left;
-    font-size: 18px; /* Increased font size */
+    text-align: center; 
+    font-size: 18px;
 }
+
 
 table th 
 {
@@ -63,7 +75,8 @@ table th
     border-style: outset;
     border-radius: 25px;
     cursor: pointer;
-    margin-left:5%;
+    display: block;
+    margin-top: 20px;
 }
 
 .addContact:hover 
@@ -182,4 +195,12 @@ h2
 {
     background-color: rgb(0, 7, 105);
     color: white;
+}
+
+#searchContactResult
+{
+    display: block; /* Ensure the search results span behaves like a block element */
+    text-align: center; /* Center-align the content */
+    font-size: 18px; /* Adjust font size */
+    margin-bottom: 10px; /* Add margin between each contact result */
 }
