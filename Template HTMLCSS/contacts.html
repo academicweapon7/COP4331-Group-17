@@ -45,9 +45,19 @@
 
     <h1>Contact List</h1>
 
+    <div>
+        <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add Contact</button>
+        <button id="deleteButton" onclick="deleteContact()" style="display: none;">Delete</button>
+        <span id="deleteContactResult"></span>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <input type="text" id="searchText" placeholder="Search" onkeypress="handleKeyPress(event);">
+        <button type="button" id="searchButton" class="buttons" onclick="searchContact();"> Search </button>
+    </div>   
+
     <!-- Table with contacts -->
     <div class="container">
-        <div style="display: flex; align-items: center;">
             <table id="contactTable">
                 <thead>
                     <tr>
@@ -60,35 +70,10 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-
-                <!-- This is where the actual contacts go -->
-                <tbody id="contactRows">
-                    <!-- Placeholder row -->
-                    <tr id="placeholderRow">
-                        <!-- In case there are no available contacts -->
-                        <td colspan="7">No contacts available</td>
-                    </tr>
-                </tbody>
             </table>
+    </div> 
 
-            <!-- Add Contact and Delete Contact buttons -->
-            <div>
-                <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add Contact</button>
-                <button id="deleteButton" onclick="deleteContact()" style="display: none;">Delete</button>
-                <span id="deleteContactResult"></span>
-            </div>
-        </div>
-    </div>
-
-    <div style="display: flex; justify-content: center;">
-        <input type="text" id="searchText" placeholder="Search" onkeypress="handleKeyPress(event);">
-        <button type="button" id="searchButton" class="buttons" onclick="searchContact();"> Search </button>
-    </div>    
-    
-    <div style="display: flex; justify-content: center;">
-        <span id="searchContactResult"></span>
-        <div id="contactList"></div>
-    </div>
+    <span id="searchContactResult"></span>
 
     <!-- test if this is needed-->
     <input type="hidden" id="selectedID">
@@ -116,7 +101,7 @@
             </div>
             <div>
                 <label for="contactPhone" class="label">Phone:</label>
-                <input type="text" id="contactPhone" placeholder="Phone Number">
+                <input type="text" id="contactPhone" placeholder="XXX-XXX-XXXX">
             </div>
             <div>
                 <label for="contactEmail" class="label">Email:</label>
