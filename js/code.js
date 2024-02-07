@@ -246,7 +246,6 @@ function searchContact()
 
     if (isEmpty(searchText)) 
 	{
-        document.getElementById("contactList").innerHTML = "";
         document.getElementById("searchContactResult").innerHTML = "Please enter a search term";
         return;
     }
@@ -284,38 +283,38 @@ function searchContact()
 
                     if (contactResult.length > 0) 
 					{
-                        let contactList = "";
+                        let contactList = "<table>";
 
                         for (let i = 0; i < contactResult.length; i++) 
 						{
                             let contact = contactResult[i];
 
                             // formatting list of contacts
-                            contactList += "First Name: " + contact.FirstName + "<br />";
-                            contactList += "Last Name: " + contact.LastName + "<br />";
-                            contactList += "Phone: " + contact.Phone + "<br />";
-                            contactList += "Email: " + contact.Email + "<br />";
-                            contactList += "Yacht Name: " + contact.YachtName + "<br />";
-							contactList += "Yacht Size: " + contact.YachtSize + "<br /><br />";
+							contactList += "<tr>";
 
-							
-							// select button
-							contactList += "<button onclick='selectContact(" + contact.ID + ")'>Select</button><br /><br />";
+        					contactList += "<td>" + contact.FirstName + "</td>"; 
+        					contactList += "<td>" + contact.LastName + "</td>"; 
+       						contactList += "<td>" + contact.YachtName + "</td>"; 
+        					contactList += "<td>" + contact.YachtSize + "</td>"; 
+        					contactList += "<td>" + contact.Phone + "</td>"; 
+        					contactList += "<td>" + contact.Email + "</td>";
+        					contactList += "<td><button onclick='selectContact(" + contact.ID + ")'>Select</button></td>";
 
-                        }
+							contactList += "</tr>";
+						}
+
+						contactList += "</table>"; // End the table
+
 						// show list of contacts
-                        document.getElementById("contactList").innerHTML = contactList;
-                        document.getElementById("searchContactResult").innerHTML = "Contacts retrieved.";
+                        document.getElementById("searchContactResult").innerHTML = contactList;
                     } 
 					else 
 					{
-						document.getElementById("contactList").innerHTML = "";
                         document.getElementById("searchContactResult").innerHTML = "No matching contacts found.";
                     }
                 } 
 				else 
 				{
-					document.getElementById("contactList").innerHTML = "";
                     document.getElementById("searchContactResult").innerHTML = jsonObject.error;
                 }
             }
@@ -469,7 +468,7 @@ function closeAddContactForm()
     document.getElementById("contactYachtSize").value = "";
     document.getElementById("contactPhone").value = "";
     document.getElementById("contactEmail").value = "";
-	
+
     document.getElementById("addContactModal").style.display = "none";
 }
 
