@@ -3,6 +3,7 @@ const extension = 'php';
 
 let userId = 0;
 let selectedId = 0;
+let clickCount = 0;
 let firstName = "";
 let lastName = "";
 
@@ -368,6 +369,11 @@ function deleteContact()
     }
 }
 
+function editContact()
+{
+
+}
+
 // helper functions
 
 function isEmpty(value) 
@@ -484,4 +490,37 @@ function selectContact(ID)
 {
 	selectedId = ID;
 	document.getElementById("deleteButton").style.display = "block";
+}
+
+document.addEventListener("DOMContentLoaded", function() 
+{
+    const container = document.getElementById("container");
+    container.addEventListener("click", handleClick);
+});
+
+function handleClick() 
+{
+    clickCount++;
+    if (clickCount === 10) 
+	{
+        showCoinGif();
+    }
+}
+
+function showCoinGif() 
+{
+    const gifContainers = document.querySelectorAll(".moving-gif-container");
+    gifContainers.forEach((container, index) => 
+	{
+        setTimeout(() => 
+		{
+            container.style.display = "block";
+            container.style.animationName = "moveDown";
+        }, index * 1000); 
+    });
+}
+
+function handleCoinClick(coin) 
+{
+    coin.parentElement.style.display = "none";
 }
