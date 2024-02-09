@@ -6,6 +6,8 @@ let selectedId = 0;
 let clickCount = 0;
 let firstName = "";
 let lastName = "";
+let selectedFirstName = "";
+let selectedLastName = "";
 
 function doLogin()
 {
@@ -284,37 +286,30 @@ function searchContact()
 				{
                     let contactResult = jsonObject.results;
 
-                    if (contactResult.length > 0) 
+                    let contactList = "<table>";
+
+                    for (let i = 0; i < contactResult.length; i++) 
 					{
-                        let contactList = "<table>";
+                        let contact = contactResult[i];
 
-                        for (let i = 0; i < contactResult.length; i++) 
-						{
-                            let contact = contactResult[i];
+                        // formatting list of contacts
+						contactList += "<tr>";
 
-                            // formatting list of contacts
-							contactList += "<tr>";
+        				contactList += "<td>" + contact.FirstName + "</td>"; 
+        				contactList += "<td>" + contact.LastName + "</td>"; 
+       					contactList += "<td>" + contact.YachtName + "</td>"; 
+        				contactList += "<td>" + contact.YachtSize + "</td>"; 
+    					contactList += "<td>" + contact.Phone + "</td>"; 
+    					contactList += "<td>" + contact.Email + "</td>";        					
+						contactList += "<td><button onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\")'>Select</button></td>";
 
-        					contactList += "<td>" + contact.FirstName + "</td>"; 
-        					contactList += "<td>" + contact.LastName + "</td>"; 
-       						contactList += "<td>" + contact.YachtName + "</td>"; 
-        					contactList += "<td>" + contact.YachtSize + "</td>"; 
-        					contactList += "<td>" + contact.Phone + "</td>"; 
-        					contactList += "<td>" + contact.Email + "</td>";
-        					contactList += "<td><button onclick='selectContact(" + contact.ID + ")'>Select</button></td>";
+						contactList += "</tr>";
+					}
 
-							contactList += "</tr>";
-						}
+					contactList += "</table>";
 
-						contactList += "</table>"; // End the table
-
-						// show list of contacts
-                        document.getElementById("searchContactResult").innerHTML = contactList;
-                    } 
-					else 
-					{
-                        document.getElementById("searchContactResult").innerHTML = "No matching contacts found.";
-                    }
+					// show list of contacts
+                    document.getElementById("searchContactResult").innerHTML = contactList; 
                 } 
 				else 
 				{
@@ -337,7 +332,7 @@ function deleteContact()
 	// clear existing result message
 	document.getElementById("deleteContactResult").innerHTML = "";
 
-    let confirmation = confirm("Are you sure you want to delete contact?");
+    let confirmation = confirm("Are you sure you want to delete " + selectedFirstName + " " + selectedLastName + "?");
     
     if (confirmation) 
 	{
@@ -488,9 +483,11 @@ function handleKeyPress(event)
 	}
 }
 
-function selectContact(ID) 
+function selectContact(Id, first, last) 
 {
-	selectedId = ID;
+	selectedId = Id;
+	selectedFirstName = first;
+	selectedLastName = last;
 	document.getElementById("deleteButton").style.display = "block";
 }
 
