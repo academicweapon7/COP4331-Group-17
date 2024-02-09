@@ -83,6 +83,8 @@ function doRegister()
     let yachtRegistration = document.getElementById("registerYachtRegistration").value;
     let username = document.getElementById("registerUsername").value;
     let password = document.getElementById("registerPassword").value;
+	let confirmPassword = document.getElementById("registerConfirmPassword").value;
+
 
 	// clear existing result message
 	document.getElementById("doRegisterResult").innerHTML = "";
@@ -97,6 +99,12 @@ function doRegister()
         document.getElementById("doRegisterResult").innerHTML = "Password must be at least 8 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character";
         return;
     }
+
+	if (password !== confirmPassword)
+	{
+        document.getElementById("doRegisterResult").innerHTML = "Password does not match";
+        return;		
+	}
 
 	// JSON formatting
 	let tmp = 
@@ -244,12 +252,6 @@ function searchContact()
 
 	// clear existing result message
     document.getElementById("searchContactResult").innerHTML = "";
-
-    if (isEmpty(searchText)) 
-	{
-        document.getElementById("searchContactResult").innerHTML = "Please enter a search term";
-        return;
-    }
 
 	// JSON formatting
     let tmp = 
