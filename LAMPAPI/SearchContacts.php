@@ -12,9 +12,18 @@
 	}
 	else
 	{
+		if (!empty($inData["Search"]))
+		{
         	$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email, YachtName FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ? OR YachtName LIKE ? OR YachtSize Like ?) AND UserID=?");
         	$searchName = "%" . $inData["Search"] . "%";
        		$stmt->bind_param("sssssss", $searchName, $searchName, $searchName, $searchName, $searchName, $searchName, $inData["UserID"]);
+		}
+		else
+		{
+			$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email, YachtName FROM Contacts WHERE UserID=?");
+			$stmt->bind_param("s", $inData["UserID"]);
+		}
+
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -26,7 +35,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-            		$searchResults .= '{"ID": "' . $row["ID"] . '", "FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", "YachtName" : "' . $row["YachtName"] . '", "YachtSize" : "' . $row["YachtSize"] . '"}';
+            $searchResults .= '{"ID": "' . $row["ID"] . '", "FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", "YachtName" : "' . $row["YachtName"] . '", "YachtSize" : "' . $row["YachtSize"] . '"}';
     }
 
 		if( $searchCount == 0 )
