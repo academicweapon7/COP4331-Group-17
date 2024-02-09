@@ -1,15 +1,23 @@
 .form-group {
-    width: 300px; /* Matched the width to the buttons */
-    display: flex; /* Ensures labels and inputs stay side by side */
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-
 .form-group label {
-    width: 125px; /* Matched the width to the buttons */
-    font-size: 30px;
-    border-radius: 25px;
-    margin-right: 15px;/* Centered the buttons with a margin */
+    width: auto;
+    min-width: 125px;
+    font-size: 23px;
+    margin-right: 15px;
     font-family: Sail-Regular;
-    transition: color .3s ease;
+    text-align: right;
+}
+
+.form-group input {
+    border-radius: 25px;
+    font-size: 15px;
+    padding: 10px;
+    text-align: center;
+    border-style: outset;
 }

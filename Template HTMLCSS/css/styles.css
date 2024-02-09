@@ -1,6 +1,6 @@
 
 /* Heads up, the font isn't called Sail-Regular I just messed up and referenced it as that but didn't feel like going back and changing everything*/
-@font-face { font-family: Sail-Regular; src: url('Searocks OTF.otf'); }
+@font-face { font-family: Sail-Regular; src: url('static/BodoniModa_9pt-SemiBoldItalic.ttf'); }
 
 /* Nav bar */
 nav 
@@ -43,11 +43,10 @@ nav
 .nav-links li button
 {
     font-family: Sail-Regular;
-    font-size: 40px;
     color: #ffffff;
     text-decoration: none;
     padding: 5px 10px; /* Adjust top and bottom padding */
-    font-size: 50px;
+    font-size: 30px;
     transition: color 0.3s ease; /* Smooth transition effect for color change */
     background: none;
     border-style: none;
@@ -81,7 +80,7 @@ body
     transform: translateX(-50%); /* Centers the title horizontally */
     font-family: Sail-Regular;
     color: rgb(0, 0, 0);
-    font-size: 40px;
+    font-size: 45px;
 
     text-shadow:
     -1px -1px 0 #ffffff,
@@ -106,7 +105,7 @@ body
 .logbutton, .logbutton a
 {
     width: 300px; /* Matched the width to the buttons */
-    font-size: 30px;
+    font-size: 25px;
     border-radius: 25px;
     margin-top: 10px; /* Centered the buttons with a margin */
     font-family: Sail-Regular;
@@ -129,7 +128,7 @@ input[type="text"],input[type="password"]
 {
     width: 300px; /* Matched the width to the buttons */
     border-radius: 25px;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
 }
 
