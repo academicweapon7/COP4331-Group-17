@@ -9,6 +9,12 @@ let lastName = "";
 let selectedFirstName = "";
 let selectedLastName = "";
 
+document.addEventListener("DOMContentLoaded", function()
+{
+	readCookie();
+	searchContact();
+});
+
 function doLogin()
 {
 	userId = 0;
@@ -63,8 +69,6 @@ function doLogin()
 
 				// takes user to next page
 				window.location.href = "contacts.html";
-
-				readCookie();
 			}
 		};
 		// sends HTTP request to server
@@ -233,6 +237,8 @@ function addContact()
 			{
                 document.getElementById("addContactResult").innerHTML = "Error: " + xhr.responseText;
 			}
+			
+			searchContact();
 		};
 		// sends HTTP request to server
 		xhr.send(jsonPayload);
@@ -247,8 +253,6 @@ function addContact()
 
 function searchContact() 
 {
-	readCookie();
-
 	// collect value from form
     let searchText = document.getElementById("searchText").value.trim();
 
@@ -360,6 +364,8 @@ function deleteContact()
 			{
 				document.getElementById("deleteContactResult").innerHTML = "Contact failed to delete";            
 			}
+
+			searchContact();
         };
         // sends HTTP request to server
         xhr.send(jsonPayload);
@@ -523,3 +529,4 @@ function handleCoinClick(coin)
 {
     coin.parentElement.style.display = "none";
 }
+
