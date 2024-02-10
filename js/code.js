@@ -249,6 +249,11 @@ function searchContact()
 {
 	readCookie();
 
+	selectedId = 0;
+    selectedFirstName = "";
+    selectedLastName = "";
+	document.getElementById("deleteButton").style.display = "none";
+
 	// collect value from form
     let searchText = document.getElementById("searchText").value.trim();
 
@@ -301,7 +306,7 @@ function searchContact()
         				contactList += "<td>" + contact.YachtSize + "</td>"; 
     					contactList += "<td>" + contact.Phone + "</td>"; 
     					contactList += "<td>" + contact.Email + "</td>";        					
-						contactList += "<td><button onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\")'>Select</button></td>";
+						contactList += "<td><button class='select-button' data-contact-id='" + contact.ID + "' onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\")'>Select</button></td>";
 
 						contactList += "</tr>";
 					}
@@ -490,7 +495,36 @@ function selectContact(Id, first, last)
 	selectedId = Id;
 	selectedFirstName = first;
 	selectedLastName = last;
+
 	document.getElementById("deleteButton").style.display = "block";
+
+	let selectButtons = document.querySelectorAll('.select-button');
+	selectButtons.forEach(button => 
+	{
+        if (button.dataset.contactId !== Id) 
+		{
+            button.parentNode.parentNode.style.display = 'none';
+        }
+		else
+		{
+			if (button.textContent === 'Select') 
+			{
+                button.textContent = 'Deselect';
+                button.onclick = function() 
+				{
+                    searchContact();
+                };
+            } 
+			else 
+			{
+                button.textContent = 'Select';
+                button.onclick = function() 
+				{
+                    selectContact(selectedId, selectedFirstName, selectedLastName);
+                };
+			}
+		}
+    });
 }
 
 function handleClick() 
