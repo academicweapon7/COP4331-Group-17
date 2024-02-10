@@ -247,6 +247,8 @@ function addContact()
 
 function searchContact() 
 {
+	readCookie();
+
 	// collect value from form
     let searchText = document.getElementById("searchText").value.trim();
 
@@ -490,12 +492,6 @@ function selectContact(Id, first, last)
 	selectedLastName = last;
 	document.getElementById("deleteButton").style.display = "block";
 }
-
-document.addEventListener("DOMContentLoaded", function() 
-{
-    const container = document.getElementById("container");
-    container.addEventListener("click", handleClick);
-});
 
 function handleClick() 
 {
