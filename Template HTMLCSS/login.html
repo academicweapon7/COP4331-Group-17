@@ -48,17 +48,23 @@
 		<input type="text" id="loginUsername" placeholder="Username" style="font-family: Sail-Regular; margin-top: 3%;"/><br />
 		<input type="password" id="loginPassword" placeholder="Password" style="font-family: Sail-Regular; margin-top: 3%;"/><br />
 		
-        <button type="button" class="logbutton" onclick="doLogin();">
-            Log In
-        </button>
-
-		<button type="button" onclick="window.location.href='register.html';" class="logbutton">
-			Don't have an account? Sign up
-        </button>
-
-		<span id="doLoginResult"></span>
 	</center>
-	
 </div>
+
+<div style="width: 400px; margin: auto;">
+
+	<span style="font-family: Sail-Regular; font-size: 30px;" id="doLoginResult"></span>
+
+	<button type="button" class="logbutton" onclick="doLogin();">
+		Log In
+	</button>
+
+	<button type="button" onclick="window.location.href='register.html';" class="logbutton">
+		Don't have an account? Sign up
+	</button>
+
+
+</div>
+
 </body>
 </html>
