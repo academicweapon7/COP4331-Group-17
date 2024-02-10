@@ -479,6 +479,8 @@ function closeAddContactForm()
     document.getElementById("contactPhone").value = "";
     document.getElementById("contactEmail").value = "";
 
+	document.getElementById("addContactResult").innerHTML = "";
+
     document.getElementById("addContactModal").style.display = "none";
 }
 
@@ -495,6 +497,8 @@ function selectContact(Id, first, last)
 	selectedId = Id;
 	selectedFirstName = first;
 	selectedLastName = last;
+
+	document.getElementById("deleteContactResult").innerHTML = "";
 
 	document.getElementById("deleteButton").style.display = "block";
 
