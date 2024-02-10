@@ -9,12 +9,6 @@ let lastName = "";
 let selectedFirstName = "";
 let selectedLastName = "";
 
-document.addEventListener("DOMContentLoaded", function()
-{
-	readCookie();
-	searchContact();
-});
-
 function doLogin()
 {
 	userId = 0;
