@@ -137,6 +137,12 @@
         readCookie();
         searchContact(); 
     });
+
+    document.addEventListener("DOMContentLoaded", function() 
+    {
+        const container = document.getElementById("container");
+        container.addEventListener("click", handleClick);
+    });
     </script>
 </body>
 </html>
