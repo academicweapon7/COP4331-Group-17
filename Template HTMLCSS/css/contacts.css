@@ -171,33 +171,46 @@ h2
     font-size: 50px;
 }
 
-/* Styles for the Add Contact button */
-.addcontact-button 
-{
-    width: 100%;
-    text-align: center;
-}
-
-.addcontact-button button 
-{
+/* Styles for the buttons */
+.action-button {
     font-family: Sail-regular;
-    padding: 15px 45px; /* Increased padding */
-    font-size: 40px; /* Increased font size */
+    padding: 15px 30px; /* Adjust padding as needed */
+    font-size: 20px; /* Adjust font size as needed */
     background-color: rgb(255, 255, 255);
-    border-color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0); /* Set border for consistency */
     text-align: center;
     color: #000000;
-    transition: color .3s ease;
-    border-style: outset;
-    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 15px;
     cursor: pointer;
+    margin-right: 10px; /* Add margin between buttons */
 }
 
-.addcontact-button button:hover 
-{
+.action-button:hover {
     background-color: rgb(0, 7, 105);
     color: white;
 }
+
+/* Container for add, edit, delete buttons */
+.buttons-container {
+    position: absolute;
+    top: 40%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+/* Styles for the Add button */
+.add-button {
+    margin-left: 50px; /* Adjust margin for positioning */
+}
+
+/* Styles for the Edit and Delete buttons */
+.edit-delete-buttons {
+    margin-right: 50px; /* Adjust margin for positioning */
+}
+
 
 #searchContactResult
 {
