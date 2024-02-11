@@ -46,8 +46,8 @@
     <h1>Contact List</h1>
 
     <div>
-        <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add Contact</button>
-        <button id="editButton" onclick="editContact()" style="display: none;">Edit</button>
+        <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add</button>
+        <button id="editButton" onclick="showEditContactForm()" style="display: none;">Edit</button>
         <button id="deleteButton" onclick="deleteContact()" style="display: none;">Delete</button>
         <span id="deleteContactResult"></span>
     </div>
@@ -115,6 +115,41 @@
             <span id="addContactResult"></span>
         </div>
     </div>
+
+    <div id="editContactModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditContactForm()">&times;</span>
+            <h2>Edit Contact</h2>
+            <div>
+                <label for="editContactFirstName" class="label">First Name:</label>
+                <input type="text" id="editContactFirstName">
+            </div>
+            <div>
+                <label for="editContactLastName" class="label">Last Name:</label>
+                <input type="text" id="editContactLastName">
+            </div>
+            <div>
+                <label for="editContactYachtName" class="label">Yacht Name:</label>
+                <input type="text" id="editContactYachtName">
+            </div>
+            <div>
+                <label for="editContactYachtSize" class="label">Yacht Size:</label>
+                <input type="text" id="editContactYachtSize">
+            </div>
+            <div>
+                <label for="editContactPhone" class="label">Phone:</label>
+                <input type="text" id="editContactPhone">
+            </div>
+            <div>
+                <label for="editContactEmail" class="label">Email:</label>
+                <input type="text" id="editContactEmail">
+            </div>
+            <div>
+                <button type="button" onclick="editContact()">Save</button>
+            </div>
+            <span id="editContactResult"></span>
+        </div>
+    </div>  
     
     <div id="container">
         Click Me
