@@ -45,12 +45,17 @@
 
     <h1>Contact List</h1>
 
-    <div>
-        <button class="addContact" style="width: 100px; height: 50px; font-size: 25px;" onclick="showAddContactForm()">Add</button>
-        <button id="editButton" onclick="showEditContactForm()" style="display: none;">Edit</button>
-        <button id="deleteButton" onclick="deleteContact()" style="display: none;">Delete</button>
-        <span id="deleteContactResult"></span>
-    </div>
+    <div class="buttons-container">
+        <div class="add-button">
+            <button id="addButton" onclick="showAddContactForm()">Add</button>
+        </div>
+
+        <div class="edit-delete-buttons">
+            <button id="editButton" onclick="showEditContactForm()" style="display: none;">Edit</button>
+            <button id="deleteButton" onclick="deleteContact()" style="display: none;">Delete</button>
+            <span id="deleteContactResult"></span>
+        </div>
+    </div>  
 
     <div style="display: flex; justify-content: center;">
         <input type="text" id="searchText" placeholder="Search" onkeypress="handleKeyPress(event);">
