@@ -2,12 +2,18 @@ const urlBase = 'http://cop4331-17.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
-let selectedId = 0;
-let clickCount = 0;
 let firstName = "";
 let lastName = "";
+
+let selectedId = 0;
 let selectedFirstName = "";
 let selectedLastName = "";
+let selectedYachtName = "";
+let selectedYachtSize = "";
+let selectedPhone = "";
+let selectedEmail = "";
+
+let clickCount = 0;
 
 function doLogin()
 {
@@ -167,6 +173,9 @@ function addContact()
 {
 	readCookie();
 
+	document.getElementById("searchText").value = "";
+
+
 	// collect values from form
 	let firstName = document.getElementById("contactFirstName").value;
     let lastName = document.getElementById("contactLastName").value;
@@ -253,6 +262,8 @@ function searchContact()
     selectedFirstName = "";
     selectedLastName = "";
 	document.getElementById("deleteButton").style.display = "none";
+	document.getElementById("editButton").style.display = "none";
+
 
 	// collect value from form
     let searchText = document.getElementById("searchText").value.trim();
@@ -306,7 +317,7 @@ function searchContact()
         				contactList += "<td>" + contact.YachtSize + "</td>"; 
     					contactList += "<td>" + contact.Phone + "</td>"; 
     					contactList += "<td>" + contact.Email + "</td>";        					
-						contactList += "<td><button class='select-button' data-contact-id='" + contact.ID + "' onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\")'>Select</button></td>";
+						contactList += "<td><button class='select-button' data-contact-id='" + contact.ID + "' onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\", \"" + contact.YachtName + "\", \"" + contact.YachtSize + "\", \"" + contact.Phone + "\", \"" + contact.Email + "\")'>Select</button></td>";
 
 						contactList += "</tr>";
 					}
@@ -375,51 +386,87 @@ function deleteContact()
 
 function editContact()
 {
+	readCookie();
 
+	// collect values from form
+	let editedFirstName = document.getElementById("editContactFirstName").value;
+    let editedLastName = document.getElementById("editContactLastName").value;
+	let editedYachtName = document.getElementById("editContactYachtName").value;
+    let editedYachtSize = document.getElementById("editContactYachtSize").value;
+	let editedPhone = document.getElementById("editContactPhone").value;
+    let editedEmail = document.getElementById("editContactEmail").value;
+
+	// clear existing result message
+	document.getElementById("editContactResult").innerHTML = "";
+
+    if (checkBlankFields(editedFirstName, editedLastName, editedYachtName, editedYachtSize, editedPhone, editedEmail)) 
+	{
+        document.getElementById("editContactResult").innerHTML = "Please fill in all the fields";
+        return;
+    }
+
+	if (!isValidPhoneNumber(editedPhone)) 
+	{
+        document.getElementById("editContactResult").innerHTML = "Please enter a valid phone number (numbers and/or dashes)";
+        return;
+    }
+
+	if (!isValidEmail(editedEmail)) 
+	{
+        document.getElementById("editContactResult").innerHTML = "Please enter a valid email address";
+        return;
+    }
+
+	// JSON formatting
+	let editedContact =
+	{
+		ID: selectedId,
+		FirstName: editedFirstName,
+		LastName: editedLastName,
+		YachtName: editedYachtName,
+		YachtSize: editedYachtSize,
+		Phone: editedPhone,
+		Email: editedEmail,
+		UserID: userId
+	};
+
+	// data to send to server (body of HTTP request)
+	let jsonPayload = JSON.stringify(editedContact);
+	
+	// same steps as Postman
+	let url = urlBase + '/Edit.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		// event handler
+		xhr.onreadystatechange = function() 
+		{
+			// complete and successful request
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("editContactResult").innerHTML = "Contact has been updated";
+				searchContact();
+			}
+			else
+			{
+                document.getElementById("editContactResult").innerHTML = "Error: " + xhr.responseText;
+			}
+		};
+		// sends HTTP request to server
+		xhr.send(jsonPayload);
+	}
+	// handles exceptions during request execution (network errors)
+	catch(err)
+	{
+		document.getElementById("editContactResult").innerHTML = err.message;
+	}
+	
 }
 
 // helper functions
-
-function isEmpty(value) 
-{
-    return value.trim() === "";
-}
-
-
-function checkPasswordComplexity(password) 
-{
-	let uppercaseRegex = /[A-Z]/;
-    let lowercaseRegex = /[a-z]/;
-    let specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-
-    return password.length >= 8 &&
-        uppercaseRegex.test(password) &&
-        lowercaseRegex.test(password) &&
-        specialCharacterRegex.test(password);
-}
-
-function checkBlankFields(...fields) 
-{
-    for (let field of fields) 
-	{
-        if (isEmpty(field)) 
-		{
-            return true; // at least one field is empty
-        }
-    }
-    return false; // no fields are empty
-}
-
-function isValidEmail(email) 
-{
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function isValidPhoneNumber(phone) 
-{
-    let phoneRegex = /^[\d\-]+$/;
-    return phoneRegex.test(phone);
-}
 
 function saveCookie()
 {
@@ -484,6 +531,33 @@ function closeAddContactForm()
     document.getElementById("addContactModal").style.display = "none";
 }
 
+function showEditContactForm() 
+{
+    var modal = document.getElementById("editContactModal");
+    modal.style.display = "block";
+
+	document.getElementById("editContactFirstName").value = selectedFirstName;
+	document.getElementById("editContactLastName").value = selectedLastName;
+	document.getElementById("editContactYachtName").value = selectedYachtName;
+	document.getElementById("editContactYachtSize").value = selectedYachtSize;
+	document.getElementById("editContactPhone").value = selectedPhone;
+	document.getElementById("editContactEmail").value = selectedEmail;
+}
+
+function closeEditContactForm() 
+{
+    document.getElementById("editContactFirstName").value = "";
+    document.getElementById("editContactLastName").value = "";
+    document.getElementById("editContactYachtName").value = "";
+    document.getElementById("editContactYachtSize").value = "";
+    document.getElementById("editContactPhone").value = "";
+    document.getElementById("editContactEmail").value = "";
+
+    document.getElementById("editContactResult").innerHTML = "";
+
+    document.getElementById("editContactModal").style.display = "none";
+}
+
 function handleKeyPress(event) 
 {
 	if (event.keyCode === 13) 
@@ -492,20 +566,26 @@ function handleKeyPress(event)
 	}
 }
 
-function selectContact(Id, first, last) 
+function selectContact(id, first, last, yacht, size, phone, email) 
 {
-	selectedId = Id;
+	selectedId = id;
 	selectedFirstName = first;
 	selectedLastName = last;
+	selectedYachtName = yacht;
+	selectedYachtSize = size;
+	selectedPhone = phone;
+	selectedEmail = email;
+
+	document.getElementById("editContactResult").innerHTML = "";
+	document.getElementById("editButton").style.display = "block";
 
 	document.getElementById("deleteContactResult").innerHTML = "";
-
 	document.getElementById("deleteButton").style.display = "block";
 
 	let selectButtons = document.querySelectorAll('.select-button');
 	selectButtons.forEach(button => 
 	{
-        if (button.dataset.contactId !== Id) 
+        if (button.dataset.contactId !== selectedId) 
 		{
             button.parentNode.parentNode.style.display = 'none';
         }
@@ -524,11 +604,51 @@ function selectContact(Id, first, last)
                 button.textContent = 'Select';
                 button.onclick = function() 
 				{
-                    selectContact(selectedId, selectedFirstName, selectedLastName);
+                    selectContact(selectedId, selectedFirstName, selectedLastName, selectedYachtName, selectedYachtSize, selectedPhone, selectedEmail);
                 };
 			}
 		}
     });
+}
+
+function isEmpty(value) 
+{
+    return value.trim() === "";
+}
+
+function checkBlankFields(...fields) 
+{
+    for (let field of fields) 
+	{
+        if (isEmpty(field)) 
+		{
+            return true; // at least one field is empty
+        }
+    }
+    return false; // no fields are empty
+}
+
+function checkPasswordComplexity(password) 
+{
+	let uppercaseRegex = /[A-Z]/;
+    let lowercaseRegex = /[a-z]/;
+    let specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    return password.length >= 8 &&
+        uppercaseRegex.test(password) &&
+        lowercaseRegex.test(password) &&
+        specialCharacterRegex.test(password);
+}
+
+function isValidEmail(email) 
+{
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPhoneNumber(phone) 
+{
+    let phoneRegex = /^[\d\-]+$/;
+    return phoneRegex.test(phone);
 }
 
 function handleClick() 
