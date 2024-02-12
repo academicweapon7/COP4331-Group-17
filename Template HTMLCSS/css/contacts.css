@@ -1,72 +1,55 @@
-body 
-{
-    font-family: Sail-Regular;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.container 
-{
+body {
+    font-family: Sail-Regular;
+    background-size: cover;
+    background-image: url('images/francesco-tommasini-mAxrZe6ttl4-unsplash.jpg');
+}
+
+.container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.table-container 
-{
-    width: 100%;
-    overflow-x: auto;
-}
-
-.search-results-container 
-{
-    width: 100%;
-    margin-top: 20px;
-}
-
-h1 
-{
+h1 {
     text-align: center;
     color: #000000;
     font-size: 70px; 
     position: relative;  
-    
-    text-shadow:
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+    margin-top: 50px;
 }
 
-table 
-{
+table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
     border-style: none;
 }
 
-table th, table td
-{
+table th, table td {
     padding: 18px;
     border-bottom: 1px solid #ddd;
     text-align: center; 
     font-size: 18px;
 }
 
-
-table th 
-{
+table th {
     background-color: #f2f2f2;
-    font-size: 35px; /* Increased font size */
+    font-size: 35px;
     background-color: rgb(255, 255, 255);
     border-color: rgb(0, 7, 105);
     transition: color .3s ease;
     border-style: outset;
-    
 }
 
-.addContact 
-{
+.addContact {
     font-family: Sail-regular;
-    font-size: 30px; /* Increased font size */
+    font-size: 30px;
     background-color: white;
     border-color: rgb(0, 0, 0);
     text-align: center;
@@ -79,22 +62,13 @@ table th
     margin-top: 20px;
 }
 
-.addContact:hover 
-{
+.addContact:hover {
     background-color: rgb(0, 7, 105);
     color: #ffffff;
     opacity: 100%;
 }
 
-.removeContact 
-{
-    color: #f00;
-    cursor: pointer;
-}
-
-/* Modal Styles */
-.modal 
-{
+.modal {
     position: fixed;
     z-index: 1;
     left: 0;
@@ -117,37 +91,36 @@ table th
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    text-align: center; /* Center align the content */
-    max-height: 80vh; 
+    text-align: center;
+    max-height: 80vh;
     overflow-y: auto;
 }
 
 .modal-content div {
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    margin-bottom: 10px; /* Add margin between elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .label {
     font-family: Sail-regular;
     font-size: 40px;
-    width: 200px; /* Adjust width to fit content */
-    text-align: right; /* Align labels to the right */
-    margin-right: 20px; /* Add margin between label and input box */
+    width: 200px;
+    text-align: right;
+    margin-right: 20px;
 }
 
 .modal-content input[type="text"] {
     font-family: Sail-regular;
-    width: 300px; /* Adjust width of input boxes */
+    width: 300px;
     padding: 10px;
     text-align: center;
-    box-sizing: border-box; /* Include padding and border in the width */
-    margin-left: 20px; /* Add margin between input box and label */
+    box-sizing: border-box;
+    margin-left: 20px;
 }
 
-.close 
-{
+.close {
     color: #000000;
     float: right;
     font-size: 28px;
@@ -158,32 +131,28 @@ table th
 }
 
 .close:hover,
-.close:focus 
-{
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
-h2 
-{
+h2 {
     text-align: center;
     font-size: 50px;
 }
 
-/* Styles for the buttons */
 .action-button {
     font-family: Sail-regular;
-    padding: 15px 30px; /* Adjust padding as needed */
-    font-size: 20px; /* Adjust font size as needed */
+    padding: 8px 8px;
+    font-size: 20px;
     background-color: rgb(255, 255, 255);
-    border: 2px solid rgb(0, 0, 0); /* Set border for consistency */
     text-align: center;
     color: #000000;
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 15px;
     cursor: pointer;
-    margin-right: 10px; /* Add margin between buttons */
+    margin-right: 10px;
 }
 
 .action-button:hover {
@@ -191,31 +160,85 @@ h2
     color: white;
 }
 
-/* Container for add, edit, delete buttons */
+.addbutton {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: outset;
+    border-color: #000000;
+    border-radius: 15px;
+    font-family: Sail-Regular;
+    color: #000000;
+    transition: color .3s ease;
+    width: 80px;
+    cursor: pointer;
+}
+
+#searchText {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: outset;
+    border-color: #000000;
+    border-radius: 15px;
+    font-family: Sail-Regular;
+    color: #000000;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: outset;
+    border-color: #000000;
+    border-radius: 15px;
+    font-family: Sail-Regular;
+    color: #000000;
+    transition: color .3s ease;
+    width: 100px;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: rgb(0, 7, 105);
+    color: white;
+}
+
 .buttons-container {
-    position: absolute;
-    top: 40%;
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    transform: translateY(-50%);
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-/* Styles for the Add button */
-.add-button {
-    margin-left: 50px; /* Adjust margin for positioning */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-/* Styles for the Edit and Delete buttons */
-.edit-delete-buttons {
-    margin-right: 50px; /* Adjust margin for positioning */
+/* Adjustments for search input and button */
+#searchText {
+    padding: 10px; /* Add padding to the input */
+    margin-right: 5px; /* Add margin between input and button */
+    border-radius: 5px; /* Add border radius for a softer look */
 }
 
-
-#searchContactResult
-{
-    display: block; /* Ensure the search results span behaves like a block element */
-    text-align: center; /* Center-align the content */
-    font-size: 18px; /* Adjust font size */
-    margin-bottom: 10px; /* Add margin between each contact result */
+#searchButton {
+    padding: 10px 20px; /* Add padding to the button */
+    border-radius: 5px; /* Add border radius for a softer look */
+    cursor: pointer; /* Ensure the cursor changes on hover */
 }
+
+@keyframes glowing {
+    0% {
+      background-color: #2ba805;
+      box-shadow: 0 0 5px #2ba805;
+    }
+    50% {
+      background-color: #49e819;
+      box-shadow: 0 0 20px #49e819;
+    }
+    100% {
+      background-color: #2ba805;
+      box-shadow: 0 0 5px #2ba805;
+    }
+  }
