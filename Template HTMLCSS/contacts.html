@@ -165,5 +165,27 @@
     <div class="moving-gif-container" style="top: 0; left: 5%;">
         <img src="coin.gif" alt="Moving Coin GIF" class="moving-gif" onclick="handleCoinClick(this)">
     </div>
+    
+    <div class="moving-gif-container" style="top: 0; left: 35%;">
+        <img src="coin.gif" alt="Moving Coin GIF" class="moving-gif" onclick="handleCoinClick(this)">
+    </div>
+    
+    <div class="moving-gif-container" style="top: 0; left: 70%;">
+        <img src="coin.gif" alt="Moving Coin GIF" class="moving-gif" onclick="handleCoinClick(this)">
+    </div>  
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() 
+        {
+            readCookie();
+            searchContact(); 
+        });
+
+        document.addEventListener("DOMContentLoaded", function() 
+        {
+            const container = document.getElementById("container");
+            container.addEventListener("click", handleClick);
+        });
+    </script>
 </body>
 </html>
