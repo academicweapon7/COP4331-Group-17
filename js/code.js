@@ -159,7 +159,6 @@ function doRegister()
     }
 }
 
-// *** add some document messages ***
 function doLogout()
 {
 	userId = 0;
@@ -466,6 +465,55 @@ function editContact()
 	
 }
 
+function selectContact(id, first, last, yacht, size, phone, email) 
+{
+	// update
+	selectedId = id;
+	selectedFirstName = first;
+	selectedLastName = last;
+	selectedYachtName = yacht;
+	selectedYachtSize = size;
+	selectedPhone = phone;
+	selectedEmail = email;
+
+	// unhide buttons
+	document.getElementById("editContactResult").innerHTML = "";
+	document.getElementById("editButton").style.display = "block";
+
+	document.getElementById("deleteContactResult").innerHTML = "";
+	document.getElementById("deleteButton").style.display = "block";
+
+	let selectButtons = document.querySelectorAll('.select-button');
+	selectButtons.forEach(button => 
+	{
+        if (button.dataset.contactId !== selectedId) 
+		{
+            button.parentNode.parentNode.style.display = 'none';
+        }
+		else
+		{
+			// select to deselect
+			if (button.textContent === 'Select') 
+			{
+                button.textContent = 'Deselect';
+                button.onclick = function() 
+				{
+                    searchContact();
+                };
+            }
+			// deselect to select 
+			else 
+			{
+                button.textContent = 'Select';
+                button.onclick = function() 
+				{
+                    selectContact(selectedId, selectedFirstName, selectedLastName, selectedYachtName, selectedYachtSize, selectedPhone, selectedEmail);
+                };
+			}
+		}
+    });
+}
+
 // helper functions
 
 function saveCookie()
@@ -566,51 +614,6 @@ function handleKeyPress(event)
 	}
 }
 
-function selectContact(id, first, last, yacht, size, phone, email) 
-{
-	selectedId = id;
-	selectedFirstName = first;
-	selectedLastName = last;
-	selectedYachtName = yacht;
-	selectedYachtSize = size;
-	selectedPhone = phone;
-	selectedEmail = email;
-
-	document.getElementById("editContactResult").innerHTML = "";
-	document.getElementById("editButton").style.display = "block";
-
-	document.getElementById("deleteContactResult").innerHTML = "";
-	document.getElementById("deleteButton").style.display = "block";
-
-	let selectButtons = document.querySelectorAll('.select-button');
-	selectButtons.forEach(button => 
-	{
-        if (button.dataset.contactId !== selectedId) 
-		{
-            button.parentNode.parentNode.style.display = 'none';
-        }
-		else
-		{
-			if (button.textContent === 'Select') 
-			{
-                button.textContent = 'Deselect';
-                button.onclick = function() 
-				{
-                    searchContact();
-                };
-            } 
-			else 
-			{
-                button.textContent = 'Select';
-                button.onclick = function() 
-				{
-                    selectContact(selectedId, selectedFirstName, selectedLastName, selectedYachtName, selectedYachtSize, selectedPhone, selectedEmail);
-                };
-			}
-		}
-    });
-}
-
 function isEmpty(value) 
 {
     return value.trim() === "";
@@ -622,10 +625,10 @@ function checkBlankFields(...fields)
 	{
         if (isEmpty(field)) 
 		{
-            return true; // at least one field is empty
+            return true;
         }
     }
-    return false; // no fields are empty
+    return false;
 }
 
 function checkPasswordComplexity(password) 
