@@ -35,16 +35,59 @@ table th, table td {
     padding: 18px;
     border-bottom: 1px solid #ddd;
     text-align: center; 
-    font-size: 18px;
+    font-size: 20px;
 }
 
 table th {
     background-color: #f2f2f2;
-    font-size: 35px;
+    font-size: 25px;
     background-color: rgb(255, 255, 255);
     border-color: rgb(0, 7, 105);
     transition: color .3s ease;
     border-style: outset;
+}
+
+table th:nth-child(1),
+table td:nth-child(1) {
+    width: 15%; /* Adjust the width for the First Name column */
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+    width: 15%; /* Adjust the width for the Last Name column */
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+    width: 15%; /* Adjust the width for the Yacht Name column */
+}
+
+table th:nth-child(4),
+table td:nth-child(4) {
+    width: 3%; /* Adjust the width for the Yacht Size column */
+}
+
+table th:nth-child(5),
+table td:nth-child(5) {
+    width: 14%; /* Adjust the width for the Phone column */
+}
+
+table th:nth-child(6),
+table td:nth-child(6) {
+    width: 37%; /* Adjust the width for the Email column */
+}
+
+table th:nth-child(7),
+table td:nth-child(7) {
+    width: 1%; /* Adjust the width for the Action column */
+}
+
+.logged-in-text {
+    font-size: 30px;
+}
+
+.contact-list-heading {
+    font-size: 100px; /* Adjust the font size as needed */
 }
 
 .addContact {
