@@ -656,6 +656,7 @@ function handleClick()
     clickCount++;
     if (clickCount === 10) 
 	{
+		treasureImage.src = "images/treasure_open.png";
         showCoinGif();
     }
 }
