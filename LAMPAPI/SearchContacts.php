@@ -36,8 +36,10 @@ if ($conn->connect_error) {
     if ($searchCount == 0) {
         returnWithError("No Records Found");
     } else {
-        returnWithInfo($searchResults);
+        $totalCount = getTotalCountOfContacts($conn, $inData);
+        returnWithInfo($searchResults, $totalCount);
     }
+    
 
     $stmt->close();
     $conn->close();
@@ -56,14 +58,25 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = '{"results":[],"error":"' . $err . '"}';
+    $retValue = '{"results":[],"error":"' . $err . '", "totalCount":1}';
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithInfo($searchResults)
+function returnWithInfo($searchResults, $totalCount)
 {
-    $retValue = '{"results":[' . $searchResults . '],"error":""}';
+    $retValue = '{"results":[' . $searchResults . '],"totalCount":' . $totalCount . ',"error":""}';
     sendResultInfoAsJson($retValue);
+}
+
+function getTotalCountOfContacts($conn, $inData)
+{
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ? OR YachtName LIKE ? OR YachtSize LIKE ?) AND UserID=?");
+    $search = "%" . $inData["Search"] . "%";
+    $stmt->bind_param("ssssssi", $search, $search, $search, $search, $search, $search, $inData["UserID"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    return $row['total'];
 }
 
 ?>
