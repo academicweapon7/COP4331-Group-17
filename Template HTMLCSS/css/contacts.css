@@ -166,7 +166,7 @@ table td:nth-child(7) {
 .close {
     color: #000000;
     float: right;
-    font-size: 28px;
+    font-size: 75px;
     font-weight: bold;
     position: absolute;
     top: 10px;
@@ -212,8 +212,9 @@ h2 {
     font-family: Sail-Regular;
     color: #000000;
     transition: color .3s ease;
-    width: 80px;
+    width: 100px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 #searchText {
@@ -237,6 +238,7 @@ h2 {
     transition: color .3s ease;
     width: 100px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 #searchButton:hover {
