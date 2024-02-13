@@ -13,6 +13,11 @@ let selectedYachtSize = "";
 let selectedPhone = "";
 let selectedEmail = "";
 
+let totalContacts = 0;
+let totalPages = 1;
+let currentPage = 1;
+let contactsPerPage = 10;
+
 let clickCount = 0;
 
 function doLogin()
@@ -275,7 +280,9 @@ function searchContact()
     let tmp = 
 	{
         Search: searchText,
-        UserID: userId
+        UserID: userId,
+		page: currentPage,
+		perPage: contactsPerPage
     };
 
 	// data to send to server (body of HTTP request)
@@ -326,10 +333,16 @@ function searchContact()
 
 					// show list of contacts
                     document.getElementById("searchContactResult").innerHTML = contactList; 
+
+                    totalPages = Math.ceil((jsonObject.totalCount) / contactsPerPage);
+					generatePageNavigation();
                 } 
 				else 
 				{
                     document.getElementById("searchContactResult").innerHTML = jsonObject.error;
+
+					totalPages = Math.ceil((jsonObject.totalCount) / contactsPerPage);
+					generatePageNavigation();
                 }
             }
         };
@@ -608,6 +621,24 @@ function closeEditContactForm()
     document.getElementById("editContactModal").style.display = "none";
 }
 
+function generatePageNavigation() 
+{	
+    let paginationContainer = document.getElementById("paginationContainer");
+    paginationContainer.innerHTML = ""; // Clear existing pagination buttons
+
+    for (let i = 1; i <= totalPages; i++) 
+	{
+        let pageButton = document.createElement("button");
+        pageButton.textContent = i;
+        pageButton.addEventListener("click", function() 
+		{
+            currentPage = i;
+            searchContact();
+        });
+        paginationContainer.appendChild(pageButton);
+    }
+}
+
 function handleKeyPress(event) 
 {
 	if (event.keyCode === 13) 
@@ -683,4 +714,3 @@ function handleCoinClick(coin)
 {
     coin.parentElement.style.display = "none";
 }
-
