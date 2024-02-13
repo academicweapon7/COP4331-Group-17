@@ -241,6 +241,7 @@ function addContact()
 			}
 			
 			searchContact();
+			closeAddContactForm();
 		};
 		// sends HTTP request to server
 		xhr.send(jsonPayload);
@@ -310,13 +311,13 @@ function searchContact()
                         // formatting list of contacts
 						contactList += "<tr>";
 
-        				contactList += "<td>" + contact.FirstName + "</td>"; 
-        				contactList += "<td>" + contact.LastName + "</td>"; 
-       					contactList += "<td>" + contact.YachtName + "</td>"; 
-        				contactList += "<td>" + contact.YachtSize + "</td>"; 
-    					contactList += "<td>" + contact.Phone + "</td>"; 
-    					contactList += "<td>" + contact.Email + "</td>";        					
-						contactList += "<td><button class='select-button' data-contact-id='" + contact.ID + "' onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\", \"" + contact.YachtName + "\", \"" + contact.YachtSize + "\", \"" + contact.Phone + "\", \"" + contact.Email + "\")'>Select</button></td>";
+						contactList += "<td class='highlight-text'>" + contact.FirstName + "</td>"; 
+						contactList += "<td class='highlight-text'>" + contact.LastName + "</td>"; 
+						contactList += "<td class='highlight-text'>" + contact.YachtName + "</td>"; 
+						contactList += "<td class='highlight-text'>" + contact.YachtSize + "</td>"; 
+						contactList += "<td class='highlight-text'>" + contact.Phone + "</td>"; 
+						contactList += "<td class='highlight-text'>" + contact.Email + "</td>";        					
+						contactList += "<td class='highlight-text'><button class='select-button' data-contact-id='" + contact.ID + "' onclick='selectContact(\"" + contact.ID + "\", \"" + contact.FirstName + "\", \"" + contact.LastName + "\", \"" + contact.YachtName + "\", \"" + contact.YachtSize + "\", \"" + contact.Phone + "\", \"" + contact.Email + "\")'>Select</button></td>";
 
 						contactList += "</tr>";
 					}
@@ -462,7 +463,6 @@ function editContact()
 	{
 		document.getElementById("editContactResult").innerHTML = err.message;
 	}
-	
 }
 
 function selectContact(id, first, last, yacht, size, phone, email) 
@@ -477,6 +477,8 @@ function selectContact(id, first, last, yacht, size, phone, email)
 	selectedEmail = email;
 
 	// unhide buttons
+	document.getElementById("addContactResult").innerHTML = "";
+
 	document.getElementById("editContactResult").innerHTML = "";
 	document.getElementById("editButton").style.display = "block";
 
@@ -563,6 +565,8 @@ function showAddContactForm()
 {
    var modal = document.getElementById("addContactModal");
    modal.style.display = "block";
+
+   document.getElementById("addContactResult").innerHTML = "";
 }
 
 function closeAddContactForm() 
@@ -573,8 +577,6 @@ function closeAddContactForm()
     document.getElementById("contactYachtSize").value = "";
     document.getElementById("contactPhone").value = "";
     document.getElementById("contactEmail").value = "";
-
-	document.getElementById("addContactResult").innerHTML = "";
 
     document.getElementById("addContactModal").style.display = "none";
 }
