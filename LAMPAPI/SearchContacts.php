@@ -70,9 +70,8 @@ function returnWithInfo($searchResults, $totalCount)
 
 function getTotalCountOfContacts($conn, $inData)
 {
-    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ? OR YachtName LIKE ? OR YachtSize LIKE ?) AND UserID=?");
-    $search = "%" . $inData["Search"] . "%";
-    $stmt->bind_param("ssssssi", $search, $search, $search, $search, $search, $search, $inData["UserID"]);
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM Contacts WHERE UserID=?");
+    $stmt->bind_param("i", $inData["UserID"]);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
