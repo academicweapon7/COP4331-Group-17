@@ -34,11 +34,31 @@ if ($conn->connect_error) {
     }
 
     if ($searchCount == 0) {
-        returnWithError("No Records Found");
+
+        $offset = 0;
+        $stmt->bind_param("ssssssiii", $search, $search, $search, $search, $search, $search, $inData["UserID"], $offset, $perPage);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        while ($row = $result->fetch_assoc()) {
+            if ($searchCount > 0) {
+                $searchResults .= ",";
+            }
+            $searchCount++;
+            $searchResults .= '{"ID": "' . $row["ID"] . '", "FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", "YachtName" : "' . $row["YachtName"] . '", "YachtSize" : "' . $row["YachtSize"] . '"}';
+        }
+    
+        if ($searchCount == 0) {
+            returnWithError("No Records Found");
+        } else {
+            $totalCount = getTotalCountOfContacts($conn, $inData);
+            returnWithInfo($searchResults, $totalCount);
+        }
     } else {
         $totalCount = getTotalCountOfContacts($conn, $inData);
         returnWithInfo($searchResults, $totalCount);
     }
+    
     
 
     $stmt->close();
@@ -70,8 +90,9 @@ function returnWithInfo($searchResults, $totalCount)
 
 function getTotalCountOfContacts($conn, $inData)
 {
-    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM Contacts WHERE UserID=?");
-    $stmt->bind_param("i", $inData["UserID"]);
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ? OR YachtName LIKE ? OR YachtSize LIKE ?) AND UserID=?");
+    $search = "%" . $inData["Search"] . "%";
+    $stmt->bind_param("ssssssi", $search, $search, $search, $search, $search, $search, $inData["UserID"]);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
